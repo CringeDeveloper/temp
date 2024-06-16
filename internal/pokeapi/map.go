@@ -1,20 +1,18 @@
 package pokeapi
 
 import (
-	"encoding/json"
 	"fmt"
 )
 
 func GetMap() error {
-	superMap := PokeMap{}
-	body, err := getPoket("https://pokeapi.co/api/v2/location/?offset=20&limit=20")
-
-	err = json.Unmarshal(body, &superMap)
+	body, err := getPoket(resultMap.getNext())
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	printCities(superMap)
+	resultMap.unmarshal(body)
+
+	printCities(resultMap)
 
 	return nil
 }

@@ -1,20 +1,22 @@
 package pokeapi
 
 import (
-	"encoding/json"
 	"fmt"
 )
 
 func MapBack() error {
-	superMap := PokeMap{}
-	body, err := getPoket("https://pokeapi.co/api/v2/location/?offset=0&limit=20")
+	prevPage, err := resultMap.getPrev()
+	if err != nil {
+		return err
+	}
 
-	err = json.Unmarshal(body, &superMap)
+	body, err := getPoket(prevPage)
 	if err != nil {
 		fmt.Println(err)
 	}
+	resultMap.unmarshal(body)
 
-	printCities(superMap)
+	printCities(resultMap)
 
 	return nil
 }

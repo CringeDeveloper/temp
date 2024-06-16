@@ -30,7 +30,7 @@ func startRepl() {
 			continue
 		}
 
-		command.callback()
+		_ = command.callback()
 	}
 }
 
